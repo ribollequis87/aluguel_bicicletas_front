@@ -6,13 +6,10 @@ import { Button, Grid, IconButton, Snackbar } from '@mui/material';
 
 export function CadastraAluguel() {
 
-    const [nome, setNome] = useState()
     const [origem, setOrigem] = useState()
-    const [destino, setDestino] = useState()
     const [identificador, setIdentificador] = useState()
-    const [kmPercorridos, setKmPercorridos] = useState()
     const [precoTotal, setPrecoTotal] = useState()
-    const [duracaoViagem, setDuracaoViagem] = useState()
+
     const [message, setMessage] = useState()
     const [open, setOpen] = useState(false)
 
@@ -41,37 +38,35 @@ export function CadastraAluguel() {
       
     function click() {
         const currentDate = new Date();
-        const timestamp = currentDate.getTime();
+        const dataInicio = currentDate.toISOString();
         let data = {
-        'origem': nome,
+        'origem': origem,
         'identificador': identificador,
-        'dataInicio': timestamp,
+        'dataInicio': dataInicio,
         'status': "INDISPONIVEL",
-        'duracaoViagem': duracaoViagem,
-        'kmPercorridos': kmPercorridos,
         'precoTotal': precoTotal,
 
         }
 
-    fetch('http://localhost:8080/aluguel', {
-      mode: 'no-cors',
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-        if (!response.ok) {
-            // error processing
-            throw 'Error';
+      fetch('http://localhost:8080/aluguel', {
+        mode: 'no-cors',
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
         }
-      setOpen(true)
-      setMessage("Aluguel cadastrado com sucesso")
-      //load()
-    }).catch(response => {
+      }).then(response => {
+          if (!response.ok) {
+              // error processing
+              throw 'Error';
+          }
         setOpen(true)
-        setMessage('erro no cadastro da aluguel!')
-    })
+        setMessage("Aluguel cadastrado com sucesso")
+        //load()
+      }).catch(response => {
+          setOpen(true)
+          setMessage('erro no cadastro da aluguel!')
+      })
 }
 
     return (
@@ -79,10 +74,8 @@ export function CadastraAluguel() {
             <div className="card">
 
                 <Grid container columnSpacing={2} rowSpacing={1}>
-                    <ItemForm label={"Origem:"} value={origem} set={setOrigem}></ItemForm>
-                    <ItemForm label={"Destino:"} value={destino} set={setDestino}></ItemForm>
-                    <ItemForm label={"Km Percorridos:"} value={kmPercorridos} set={setKmPercorridos}></ItemForm>
-                    <ItemForm label={"Duração da Viagem:"} value={duracaoViagem} set={setDuracaoViagem}></ItemForm>
+                    <ItemForm label={"Nome:"} value={origem} set={setOrigem}></ItemForm>
+                    <ItemForm label={"Indentificador:"} value={identificador} set={setIdentificador}></ItemForm>
                     <ItemForm label={"Preco Total:"} value={precoTotal} set={setPrecoTotal}></ItemForm>
                 </Grid>
                 <Button variant="outlined" onClick={() => click()}>Cadastrar</Button>
