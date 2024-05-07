@@ -8,42 +8,39 @@ export function ListaAlugueis() {
   const [data, setData] = useState([])
   const [idAluguel, setIdAluguel] = useState()
 
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState()
+
+
+
   useEffect(() => {
     load()
   }, [])
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+};
+
   function load() {
     fetch('http://localhost:8080/aluguel', {
-        mode: 'no-cors',
         method: 'GET',
-  
     }).then(response => {
       return response.json()
     }).then(data => {
       setData(data)
     }).catch(response => {
-      alert('Erro ao listar times!')
-      alert(response.status)
-    })
-  }
-
-  function loadAluguelId(){
-    fetch('http://localhost:8080/aluguel' + idAluguel, {
-      mode: 'no-cors',
-      method: 'GET',
-    }).then(response => {
-      return response.json()
-    }).then(data => {
-      setIdAluguel(data)
-    }).catch(response => {
-      alert('Erro ao listar times!')
-      alert(response.status)
+      setOpen(true)
+      setMessage('Erro ao achar alugueis!')
+      
     })
   }
 
   function click() {
-  fetch('http://localhost:8080/aluguel' + idAluguel,{
-    mode: 'no-cors',
+  fetch('http://localhost:8080/aluguel/' + idAluguel,{
     method: 'DELETE',
     body: JSON.stringify(data),
     headers: {
@@ -56,8 +53,9 @@ export function ListaAlugueis() {
       }
     setOpen(true)
     setMessage("Aluguel excluido com sucesso")
-    //load()
+    load()
   }).catch(response => {
+      console.log(idAluguel)
       setOpen(true)
       setMessage('erro ao excluir aluguel!')
   })
@@ -81,7 +79,7 @@ export function ListaAlugueis() {
                     </tr>         
                     {
                     data.map((aluguel, index) => {
-                        return <tr>
+                        return <tr key={index}>
                         <td>{aluguel.id}</td>
                         <td>{aluguel.dataInicio}</td>
                         <td>{aluguel.duracaoViagem}</td>
@@ -90,18 +88,27 @@ export function ListaAlugueis() {
                         <td>{aluguel.kmPercorridos}</td>
                         <td>{aluguel.precoTotal}</td>
                         <td>{aluguel.status}</td>
-                        <td>{aluguel.bicicleta}</td>
+                        <td>{aluguel.bicicleta}</td>    
+                        {/* vai pegar o ultimo o daquela linha */}
+                        <td><Button variant="outlined" onClick={() => {click(); setIdAluguel(aluguel.id) }}>Excluir</Button></td>
                         </tr>
+                        
+                        
                     })
-
                     }
-                    <tr>
-                      <td><Button variant="outlined" onClick={() => click()}>Excluir</Button></td>
-                    </tr>
+                    
+                    
                 </tbody>
             </table>
 
         </div>
+
+        <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={message}
+            ></Snackbar>
       </>
   )
 
