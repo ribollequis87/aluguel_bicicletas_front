@@ -26,7 +26,7 @@ export function ListaAlugueis() {
 };
 
   function load() {
-    fetch('http://localhost:8080/aluguel', {
+    fetch('http://localhost:8087/aluguel', {
         method: 'GET',
     }).then(response => {
       return response.json()
@@ -58,7 +58,7 @@ export function ListaAlugueis() {
     const clickedId = data[index].id;
     setIdAluguel(clickedId); 
   
-    fetch('http://localhost:8080/aluguel/' + clickedId, {
+    fetch('http://localhost:8087/aluguel/' + clickedId, {
       method: 'DELETE',
       body: JSON.stringify(data),
       headers: {

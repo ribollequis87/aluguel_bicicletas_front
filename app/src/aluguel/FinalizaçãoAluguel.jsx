@@ -40,7 +40,7 @@ export function FinalizarAluguel() {
 
 
     function loadAluguel() {
-        fetch('http://localhost:8080/aluguel?status=CONFIRMADO' , {
+        fetch('http://localhost:8087/aluguel?status=CONFIRMADO' , {
             method: 'GET'
             }).then(response => {
             return response.json()
@@ -64,7 +64,7 @@ export function FinalizarAluguel() {
             
         }
     
-        fetch('http://localhost:8080/aluguel/' + aluguel,{
+        fetch('http://localhost:8087/aluguel/' + aluguel,{
           method: 'PUT',
           body: JSON.stringify(data),
           headers: {

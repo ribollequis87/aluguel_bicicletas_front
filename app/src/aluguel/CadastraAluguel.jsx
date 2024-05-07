@@ -1,7 +1,11 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { ItemForm } from "./ItemForm";
 import { Button, Grid, IconButton, Snackbar } from '@mui/material';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 export function CadastraAluguel() {
@@ -70,11 +74,11 @@ export function CadastraAluguel() {
         'dataInicio': dataInicio,
         'status': "CONFIRMADO",
         'precoTotal': precoTotal,
-        'idBicicleta': bicicletas,
+        'bicicleta': bicicletas,
 
         }
 
-      fetch('http://localhost:8080/aluguel', {
+      fetch('http://localhost:8087/aluguel', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -99,7 +103,7 @@ export function CadastraAluguel() {
             <div className="card">
 
                 <Grid container columnSpacing={2} rowSpacing={1}>
-                    <ItemForm label={"Nome:"} value={origem} set={setOrigem}></ItemForm>
+                    <ItemForm label={"Origem:"} value={origem} set={setOrigem}></ItemForm>
                     <ItemForm label={"Indentificador:"} value={identificador} set={setIdentificador}></ItemForm>
                     <ItemForm label={"Preco Total:"} value={precoTotal} set={setPrecoTotal}></ItemForm>
 
