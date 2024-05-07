@@ -71,7 +71,6 @@ export function CadastraAluguel() {
         let data = {
         'origem': origem,
         'identificador': identificador,
-        'dataInicio': dataInicio,
         'status': "CONFIRMADO",
         'precoTotal': precoTotal,
         'bicicleta': bicicletas,

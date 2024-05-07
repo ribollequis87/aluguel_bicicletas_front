@@ -101,7 +101,7 @@ export function FinalizarAluguel() {
                     >
                     {
                         dataAluguel.map((aluguel, index) => {
-                        return <MenuItem value={aluguel.id}>{aluguel.origem}</MenuItem>
+                        return <MenuItem value={aluguel.id}>{aluguel.origem} | {aluguel.id} | {aluguel.dataInicio}</MenuItem>
                     })
                     }
                         
