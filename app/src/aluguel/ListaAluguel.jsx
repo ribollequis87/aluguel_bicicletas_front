@@ -11,8 +11,9 @@ export function ListaAlugueis() {
 
   function load() {
     fetch('http://localhost:8080/aluguel', {
-        mode:'no-cors',
-        method: 'GET'
+        mode: 'no-cors',
+        method: 'GET',
+  
     }).then(response => {
       return response.json()
     }).then(data => {
@@ -38,7 +39,7 @@ export function ListaAlugueis() {
                     <td>PrecoTotal</td>
                     <td>Status</td>
                     <td>Bicicleta</td>
-                    </tr>            
+                    </tr>         
                     {
                     data.map((aluguel, index) => {
                         return <tr>

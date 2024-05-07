@@ -6,6 +6,7 @@ import { CadastraAluguel } from './aluguel/CadastraAluguel'
 import { ListaAlugueis } from './aluguel/ListaAluguel'
 import {  Grid } from '@mui/material';
 import { Link, Route, Routes } from 'react-router-dom'
+import { FinalizarAluguel } from './aluguel/FinalizaçãoAluguel'
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
             <Grid item xs={12}>
               <Link to='/listarAlugueis'>Listar Alugueis</Link>
             </Grid>
+            <Grid item xs={12}>
+              <Link to='/finalizarAluguel'>Finalizar Alugueis</Link>
+            </Grid>
           </Grid>
 
 
@@ -35,6 +39,7 @@ function App() {
         <Routes>
           <Route path='/cadastrarAluguel' element={<CadastraAluguel />} />
           <Route path='/listarAlugueis' element={<ListaAlugueis />} />
+          <Route path='/finalizarAluguel' element={<FinalizarAluguel />} />
         </Routes>
 
 
