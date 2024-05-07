@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { Button, Grid, IconButton, Snackbar } from '@mui/material';
 
 
@@ -39,27 +39,45 @@ export function ListaAlugueis() {
     })
   }
 
-  function click() {
-  fetch('http://localhost:8080/aluguel/' + idAluguel,{
-    method: 'DELETE',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(response => {
-      if (!response.ok) {
-          // error processing
-          throw 'Error';
+  const action = (
+    <Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+      </IconButton>
+    </Fragment>
+  );
+
+  function click(index) {
+    const clickedId = data[index].id;
+    setIdAluguel(clickedId); 
+  
+    fetch('http://localhost:8080/aluguel/' + clickedId, {
+      method: 'DELETE',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
       }
-    setOpen(true)
-    setMessage("Aluguel excluido com sucesso")
-    load()
-  }).catch(response => {
-      console.log(idAluguel)
+    }).then(response => {
+      if (!response.ok) {
+        // error processing
+        throw 'Error';
+      }
+      setOpen(true)
+      setMessage("Aluguel excluido com sucesso")
+      load()
+    }).catch(response => {
       setOpen(true)
       setMessage('erro ao excluir aluguel!')
-  })
-}
+    })
+  }
+  
 
   return(
     <>
@@ -88,9 +106,8 @@ export function ListaAlugueis() {
                         <td>{aluguel.kmPercorridos}</td>
                         <td>{aluguel.precoTotal}</td>
                         <td>{aluguel.status}</td>
-                        <td>{aluguel.bicicleta}</td>    
-                        {/* vai pegar o ultimo o daquela linha */}
-                        <td><Button variant="outlined" onClick={() => {click(); setIdAluguel(aluguel.id) }}>Excluir</Button></td>
+                        <td>{aluguel.bicicleta}</td>   
+                        <td><Button variant="outlined" onClick={() => click(index)}>Excluir</Button></td>
                         </tr>
                         
                         

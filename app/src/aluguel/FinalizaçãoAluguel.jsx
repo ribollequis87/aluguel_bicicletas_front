@@ -54,15 +54,16 @@ export function FinalizarAluguel() {
 
 
     function click() {
+
+
         let data = {
             'destino': destino,
             'kmPercorridos': kmPercorridos,
-            'aluguel': aluguel,
             'status': 'FINALIZADO',
             
         }
     
-        fetch('http://localhost:8080/aluguel', {
+        fetch('http://localhost:8080/aluguel/' + aluguel,{
           method: 'PUT',
           body: JSON.stringify(data),
           headers: {

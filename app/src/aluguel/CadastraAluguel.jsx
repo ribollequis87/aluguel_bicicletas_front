@@ -34,14 +34,14 @@ export function CadastraAluguel() {
 
 
   function loadBicicletas() {
-      fetch('rota do outro grupo', {
+      fetch('http://localhost:8080/bicicleta', {
           method: 'GET'
           }).then(response => {
           return response.json()
           }).then(data => {
           setDataBicicleta(data)
           }).catch(response => {
-          alert('Erro ao achar alugueis!')
+          alert('Erro ao achar bicicletas!')
           alert(response.status)
           })
   }
@@ -68,8 +68,9 @@ export function CadastraAluguel() {
         'origem': origem,
         'identificador': identificador,
         'dataInicio': dataInicio,
-        'status': "INDISPONIVEL",
+        'status': "CONFIRMADO",
         'precoTotal': precoTotal,
+        'idBicicleta': bicicletas,
 
         }
 
