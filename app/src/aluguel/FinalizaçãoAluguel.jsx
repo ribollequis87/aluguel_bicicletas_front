@@ -19,6 +19,7 @@ export function FinalizarAluguel() {
     const [dataAluguel, setDataAluguel] = useState([])
 
 
+
     const handleChangeAluguel = (event) => {
     setAluguel(event.target.value);
     };
@@ -39,7 +40,7 @@ export function FinalizarAluguel() {
 
 
     function loadAluguel() {
-        fetch('http://localhost:8080/aluguel', {
+        fetch('http://localhost:8080/aluguel?status=CONFIRMADO' , {
             method: 'GET'
             }).then(response => {
             return response.json()

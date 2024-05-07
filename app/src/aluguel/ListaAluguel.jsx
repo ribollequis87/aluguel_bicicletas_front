@@ -125,6 +125,7 @@ export function ListaAlugueis() {
                 autoHideDuration={6000}
                 onClose={handleClose}
                 message={message}
+                action={action}
             ></Snackbar>
       </>
   )

@@ -75,7 +75,6 @@ export function CadastraAluguel() {
         }
 
       fetch('http://localhost:8080/aluguel', {
-        mode: 'no-cors',
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
