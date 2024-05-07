@@ -9,6 +9,9 @@ export function CadastraAluguel() {
     const [origem, setOrigem] = useState()
     const [identificador, setIdentificador] = useState()
     const [precoTotal, setPrecoTotal] = useState()
+    const [bicicletas, setBicicletas] = useState([])
+
+    const [dataBicicleta, setDataBicicleta] = useState([])
 
     const [message, setMessage] = useState()
     const [open, setOpen] = useState(false)
@@ -20,6 +23,28 @@ export function CadastraAluguel() {
     
         setOpen(false);
     };
+
+    const handleChangeBicicleta = (event) => {
+      setBicicletas(event.target.value);
+      };
+
+    useEffect(() => {
+      loadBicicletas()
+  }, [])
+
+
+  function loadBicicletas() {
+      fetch('rota do outro grupo', {
+          method: 'GET'
+          }).then(response => {
+          return response.json()
+          }).then(data => {
+          setDataBicicleta(data)
+          }).catch(response => {
+          alert('Erro ao achar alugueis!')
+          alert(response.status)
+          })
+  }
 
     const action = (
         <Fragment>
@@ -77,6 +102,25 @@ export function CadastraAluguel() {
                     <ItemForm label={"Nome:"} value={origem} set={setOrigem}></ItemForm>
                     <ItemForm label={"Indentificador:"} value={identificador} set={setIdentificador}></ItemForm>
                     <ItemForm label={"Preco Total:"} value={precoTotal} set={setPrecoTotal}></ItemForm>
+
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Bicicleta</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={bicicletas}
+                        label="Campeonato"
+                        onChange={handleChangeBicicleta}
+                    >
+                    {
+                        dataBicicleta.map((bicicleta, index) => {
+                        return <MenuItem value={bicicleta.id}>{bicicleta.modelo} | {bicicleta.tipo} | R${bicicleta.preço}</MenuItem>
+                    })
+                    }
+                        
+                    
+                    </Select>
+                </FormControl>
                 </Grid>
                 <Button variant="outlined" onClick={() => click()}>Cadastrar</Button>
 
